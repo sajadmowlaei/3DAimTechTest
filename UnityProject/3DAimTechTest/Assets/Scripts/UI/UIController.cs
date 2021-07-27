@@ -34,7 +34,7 @@ namespace UI
         }
         private void ScoreChanged(float newScore)
         {
-            _textScore.text = newScore.ToString();
+            _textScore.text = "Score: "+newScore.ToString();
         }
 
     }

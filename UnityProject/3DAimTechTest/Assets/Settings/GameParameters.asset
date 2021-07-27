@@ -17,4 +17,4 @@ MonoBehaviour:
   clipSize: 30
   damage: 50
   weaponRange: 50
-  targetsToKill: 30
+  targetsToKill: 2

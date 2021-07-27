@@ -18,7 +18,7 @@ namespace Gun
         private float _weaponRange = 50f;
 
         public float hitForce = 100;
-        public Transform gunEnd; // ray az inja shoroo mishe
+        public Transform gunEnd; // Ray starts here
         public Camera fpsCam;
         private WaitForSeconds shotDuration = new WaitForSeconds(0.07f); // how long we want the laser remain visible, to optimize memory performance
 
@@ -55,7 +55,6 @@ namespace Gun
                     Health healthComponent = hit.collider.GetComponent<Health>();
                     if(healthComponent != null)
                         healthComponent.Damage(_gunDamage);
-
                 }
                 else
                 {
