@@ -1,4 +1,5 @@
 using System.Collections;
+using Director;
 using Enemy;
 using GameParameters;
 using UnityEngine;
@@ -7,7 +8,6 @@ namespace Gun
 {
     public class RaycastShoot : MonoBehaviour
     {
-        public Settings gameParameters;
         public static event System.Action<Vector2Int, Vector3> onTest;
         public static event System.Action onHit;
         public static event System.Action onMiss;
@@ -28,13 +28,13 @@ namespace Gun
 
         private float _nextFire;
 
-        private void Awake()
+        private void Start()
         {
             _laserLine = GetComponent<LineRenderer>();
             _gunAudio = GetComponent<AudioSource>();
-            _gunDamage = gameParameters.GetDamage;
-            _weaponRange = gameParameters.GetWeaponRange;
-            _fireRate = gameParameters.GetRateOfFire / 1000;
+            _gunDamage = SettingsReader.Instance.GameSettings.GetDamage;
+            _weaponRange = SettingsReader.Instance.GameSettings.GetWeaponRange;
+            _fireRate = SettingsReader.Instance.GameSettings.GetRateOfFire / 1000;
         }
 
         private void Update()

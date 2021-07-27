@@ -1,4 +1,5 @@
 using System;
+using Director;
 using GameParameters;
 using UnityEngine;
 
@@ -8,10 +9,11 @@ namespace Enemy
     {
         private float _health;
         public static event System.Action onDie;
-        public Settings gameParameters;
-        private void Awake()
+        //public Settings gameParameters;
+        //[SerializeField] private Settings gameParameters2;
+        private void Start()
         {
-            _health = gameParameters.GetEnemyHealth;
+            _health = SettingsReader.Instance.GameSettings.GetEnemyHealth;
         }
 
         public void Damage(float amount)

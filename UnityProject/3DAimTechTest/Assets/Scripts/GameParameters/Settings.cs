@@ -18,7 +18,7 @@ namespace GameParameters
         public float GetRateOfFire => rateOfFire;
         public int GetClipSize => clipSize;
         public float GetDamage => damage;
-        public float GetTargetToKill => targetsToKill;
+        public int GetTargetToKill => targetsToKill;
         public float GetWeaponRange => weaponRange;
     }
 }
