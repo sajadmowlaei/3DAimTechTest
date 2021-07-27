@@ -1,19 +1,21 @@
 using System.Collections;
 using Enemy;
+using GameParameters;
 using UnityEngine;
 
 namespace Gun
 {
     public class RaycastShoot : MonoBehaviour
     {
+        public Settings gameParameters;
         public static event System.Action<Vector2Int, Vector3> onTest;
         public static event System.Action onHit;
         public static event System.Action onMiss;
-        public int gunDamage = 1;
+        private float _gunDamage;
 
-        public float fireRate = .25f;
+        private float _fireRate;
 
-        public float weaponRange = 50f;
+        private float _weaponRange = 50f;
 
         public float hitForce = 100;
         public Transform gunEnd; // ray az inja shoroo mishe
@@ -26,11 +28,13 @@ namespace Gun
 
         private float _nextFire;
 
-        //public GameObject debutHitPoint;
         private void Awake()
         {
             _laserLine = GetComponent<LineRenderer>();
             _gunAudio = GetComponent<AudioSource>();
+            _gunDamage = gameParameters.GetDamage;
+            _weaponRange = gameParameters.GetWeaponRange;
+            _fireRate = gameParameters.GetRateOfFire / 1000;
         }
 
         private void Update()
@@ -38,26 +42,25 @@ namespace Gun
             
             if (Input.GetButtonDown("Fire1") && Time.time > _nextFire)
             {
-                Debug.Log("injaa");
-                _nextFire = Time.time + fireRate;
+                _nextFire = Time.time + _fireRate;
                 StartCoroutine(ShotEffect());
                 Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
                 RaycastHit hit;
                 _laserLine.SetPosition(0,gunEnd.position);
 
-                if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
+                if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, _weaponRange))
                 {
                     onHit?.Invoke();
                     _laserLine.SetPosition(1,hit.point);
                     Health healthComponent = hit.collider.GetComponent<Health>();
                     if(healthComponent != null)
-                        healthComponent.Damage(1);
+                        healthComponent.Damage(_gunDamage);
 
                 }
                 else
                 {
                     onMiss?.Invoke();
-                    _laserLine.SetPosition(1,rayOrigin + (fpsCam.transform.forward*weaponRange));
+                    _laserLine.SetPosition(1,rayOrigin + (fpsCam.transform.forward*_weaponRange));
                 }
             }
             

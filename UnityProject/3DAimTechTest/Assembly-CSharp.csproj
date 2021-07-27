@@ -59,6 +59,10 @@
      <Compile Include="Assets\Scripts\Player\PlayerMoveInput.cs" />
      <Compile Include="Assets\Scripts\Gun\MouseLook.cs" />
      <Compile Include="Assets\Scripts\Enemy\Health.cs" />
+     <Compile Include="Assets\Scripts\Statistics\StatisticsTrackerData.cs" />
+     <Compile Include="Assets\Scripts\Statistics\StatisticsTrackerController.cs" />
+     <Compile Include="Assets\Scripts\Director\EndGameDetector.cs" />
+     <Compile Include="Assets\Scripts\GameParameters\Settings.cs" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/UnityInstall/2020.2.4f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

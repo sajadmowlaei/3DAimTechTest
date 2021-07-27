@@ -1,18 +1,26 @@
+using System;
+using GameParameters;
 using UnityEngine;
 
 namespace Enemy
 {
     public class Health : MonoBehaviour
     {
-        public float health;
+        private float _health;
+        public static event System.Action onDie;
+        public Settings gameParameters;
+        private void Awake()
+        {
+            _health = gameParameters.GetEnemyHealth;
+        }
 
         public void Damage(float amount)
         {
-            health -= amount;
-            if (health <= 0)
+            _health -= amount;
+            if (_health <= 0)
             {
+                onDie?.Invoke();
                 Destroy(gameObject);
-                //
             }
         }
     }
