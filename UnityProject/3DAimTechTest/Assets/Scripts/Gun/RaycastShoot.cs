@@ -1,10 +1,14 @@
 using System.Collections;
+using Enemy;
 using UnityEngine;
 
 namespace Gun
 {
     public class RaycastShoot : MonoBehaviour
     {
+        public static event System.Action<Vector2Int, Vector3> onTest;
+        public static event System.Action onHit;
+        public static event System.Action onMiss;
         public int gunDamage = 1;
 
         public float fireRate = .25f;
@@ -22,6 +26,7 @@ namespace Gun
 
         private float _nextFire;
 
+        //public GameObject debutHitPoint;
         private void Awake()
         {
             _laserLine = GetComponent<LineRenderer>();
@@ -30,8 +35,10 @@ namespace Gun
 
         private void Update()
         {
+            
             if (Input.GetButtonDown("Fire1") && Time.time > _nextFire)
             {
+                Debug.Log("injaa");
                 _nextFire = Time.time + fireRate;
                 StartCoroutine(ShotEffect());
                 Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0));
@@ -40,14 +47,20 @@ namespace Gun
 
                 if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, weaponRange))
                 {
+                    onHit?.Invoke();
                     _laserLine.SetPosition(1,hit.point);
+                    Health healthComponent = hit.collider.GetComponent<Health>();
+                    if(healthComponent != null)
+                        healthComponent.Damage(1);
 
                 }
                 else
                 {
+                    onMiss?.Invoke();
                     _laserLine.SetPosition(1,rayOrigin + (fpsCam.transform.forward*weaponRange));
                 }
             }
+            
         }
 
         private IEnumerator ShotEffect()
