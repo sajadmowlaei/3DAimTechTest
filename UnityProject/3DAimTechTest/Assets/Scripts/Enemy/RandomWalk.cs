@@ -7,7 +7,7 @@ namespace Enemy
         private Vector3 _destination;
         private Vector3 _startingPosition;
 
-        private float speed = 2;
+        private float speed = 1.2f;
             // Start is called before the first frame update
         void Start()
         {
@@ -17,7 +17,7 @@ namespace Enemy
 
         void Update()
         {
-            transform.Rotate(0,1,0);
+            transform.Rotate(0,0.4f,0);
             float step =  speed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, _destination, step);
 

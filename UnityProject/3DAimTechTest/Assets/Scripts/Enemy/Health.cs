@@ -9,8 +9,6 @@ namespace Enemy
     {
         private float _health;
         public static event System.Action onDie;
-        //public Settings gameParameters;
-        //[SerializeField] private Settings gameParameters2;
         private void Start()
         {
             _health = SettingsReader.Instance.GameSettings.GetEnemyHealth;

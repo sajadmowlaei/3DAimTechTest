@@ -9,10 +9,12 @@ namespace Director
         private void OnEnable()
         {
             Health.onDie += EnemyIsDead;
+            EnemyWeakPoint.onDieWeakPoint  += EnemyIsDead;
         }
         private void OnDisable()
         {
             Health.onDie -= EnemyIsDead;
+            EnemyWeakPoint.onDieWeakPoint  -= EnemyIsDead;
         }
         private void EnemyIsDead()
         {
